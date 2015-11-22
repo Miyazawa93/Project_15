@@ -10,7 +10,7 @@ public class Utility {
 			throw new IllegalArgumentException("Maximum of hex exceeded");
 	}
 
-	public int getLength(String string) {
+	public int checkLength(String string) {
 		if(string.length() == 0){
 			return 0;
 		}
@@ -52,8 +52,7 @@ public class Utility {
 	}
 	public String convertIntToHex(int integer){
 		 String digits = "0123456789ABCDEF";
-	        if (integer == 0) return "0";
-	        String converted = "";
+		 String converted = "";
 	        while (integer > 0) {
 	            int digit = integer % 16;             
 	            converted = digits.charAt(digit) + converted;

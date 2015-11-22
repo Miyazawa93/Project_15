@@ -17,11 +17,11 @@ public class UtilityTest {
 	}
 	@Test
 	public void testLengthOfString_shouldReturnNull(){
-		assertEquals(0, utility.getLength(""));		
+		assertEquals(0, utility.checkLength(""));		
 	}
 	@Test 
 	public void isEmpty_shouldReturnLengthOfString(){
-		assertEquals(5, utility.getLength("Hello"));
+		assertEquals(5, utility.checkLength("Hello"));
 	}
 	@Test
 	public void testLengthOfString_LongerThan24_IllegalArgumentException(){
@@ -62,13 +62,13 @@ public class UtilityTest {
 		utility.checkHexLength("1234567"); 
 	}
 	@Test 
-	public void checkInput_hex_illegalArgumentException(){
+	public void checkInput_5G_illegalArgumentException(){
 		thrown.expect(IllegalArgumentException.class);
 		thrown.expectMessage("Input not allowed");
 		utility.checkInput("5G", constant.ALLOWED_TOKENS_HEX);
 	}
 	@Test 
-	public void checkInput_hex_illegalArggffrghfgdrgumentException(){
+	public void checkInput_ghj_illegalArgumentException(){
 		thrown.expect(IllegalArgumentException.class);
 		thrown.expectMessage("Input not allowed");
 		utility.checkInput("ghj", constant.ALLOWED_TOKENS_HEX);
