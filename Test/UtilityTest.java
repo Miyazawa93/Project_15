@@ -1,22 +1,12 @@
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-/*Hex strenger:
-En tom streng skal returnere 0
-En streng som er lengre enn 6 skal forårsake at en IllegalArgumentException kastes
-En streng som har andre tegn enn 01234567890ABCDEF / abcdef skal forårsake at en
-IllegalArgumentException kastes*/
-
-
 public class UtilityTest {
 	
 	public Utility utility;	
-	public static final int MAX_BIT_LENGTH = 24;
-	public static final int MAX_HEX_LENGTH = 6; 
 	
 	@Rule
 	public ExpectedException thrown = ExpectedException.none(); 
@@ -27,13 +17,17 @@ public class UtilityTest {
 	}
 	@Test
 	public void testLengthOfString_shouldReturnNull(){
-		assertTrue(utility.isEmpty(""));		
+		assertEquals(0, utility.getLength(""));		
+	}
+	@Test 
+	public void isEmpty_shouldReturnLengthOfString(){
+		assertEquals(5, utility.getLength("Hello"));
 	}
 	@Test
 	public void testLengthOfString_LongerThan24_IllegalArgumentException(){
 		thrown.expect(IllegalArgumentException.class);
 		thrown.expectMessage("Number of bits exceeds maximum allowed");
-		utility.checkLength("010101010101010101010101011101", MAX_BIT_LENGTH); 
+		utility.checkBitLength("010101010101010101010101011101"); 
 	}
 	@Test
 	public void convertBinaryToInt_0_shouldReturn0(){
@@ -58,13 +52,42 @@ public class UtilityTest {
 	@Test 
 	public void checkInput_shouldReturnIllegalArgumentException(){
 		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("Wrong input");
-		utility.checkInput("5"); 
+		thrown.expectMessage("Input not allowed");
+		utility.checkInput("5", constant.ALLOWED_TOKENS_BINARY); 
 	}
 	@Test 
-	public void checkLength_longerThan6_IllegalArgumentException(){
+	public void checkHexLength_longerThan6_IllegalArgumentException(){
 		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("Number of bits exceeds maximum allowed");
-		utility.checkLength("1234567", MAX_HEX_LENGTH); 
+		thrown.expectMessage("Maximum of hex exceeded");
+		utility.checkHexLength("1234567"); 
+	}
+	@Test 
+	public void checkInput_hex_illegalArgumentException(){
+		thrown.expect(IllegalArgumentException.class);
+		thrown.expectMessage("Input not allowed");
+		utility.checkInput("5G", constant.ALLOWED_TOKENS_HEX);
+	}
+	@Test 
+	public void checkInput_hex_illegalArggffrghfgdrgumentException(){
+		thrown.expect(IllegalArgumentException.class);
+		thrown.expectMessage("Input not allowed");
+		utility.checkInput("ghj", constant.ALLOWED_TOKENS_HEX);
+	}
+	@Test
+	public void convertHexToInt_9A_shouldReturn_154(){
+		assertEquals(154, utility.convertHexToInt("9A")); 
+	}
+	@Test
+	public void convertHexToInt_B6_shouldReturn_182(){
+		assertEquals(182, utility.convertHexToInt("B6")); 
+	}
+	@Test
+	public void convertIntToHex_154_shouldReturn_9A(){
+		assertEquals("9A", utility.convertIntToHex(154));
+	}
+	@Test 
+	public void convertIntToHex_182_shouldReturn_B6(){
+		assertEquals("B6", utility.convertIntToHex(182)); 
 	}
 }
+
