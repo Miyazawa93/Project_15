@@ -12,11 +12,11 @@ public class Utility {
 		return false; 
 	}
 
-	public static String isItEmpty(String string) {
+	public static boolean isEmpty(String string) {
 		if(string.length() == 0){
-			return "0"; 
+			return true; 
 		}
-		return null;
+		return false;
 	}
 
 	public static int convertBinaryToInt(String binary){
@@ -28,10 +28,10 @@ public class Utility {
 		return converted;
 	}
 
-	public static String convertIntToBinary(int integer) {
+	public static String convertIntToBinary(int number) {
 		StringBuilder string = new StringBuilder(""); 
-		for(int i = 0; i < MAX_BIT_LENGTH; i++, integer/=2)
-			string.append(integer % 2); 
+		for(int i = 0; i < MAX_BIT_LENGTH; i++, number/=2)
+			string.append(number % 2); 
 		String converted = string.reverse().toString(); 
 		return converted;		
 	}
