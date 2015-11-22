@@ -5,15 +5,18 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+/*Hex strenger:
+En tom streng skal returnere 0
+En streng som er lengre enn 6 skal forårsake at en IllegalArgumentException kastes
+En streng som har andre tegn enn 01234567890ABCDEF / abcdef skal forårsake at en
+IllegalArgumentException kastes*/
+
 
 public class UtilityTest {
 	
-/*	Bitstrenger:
-		En streng som har andre tegn enn 0 og 1 skal forårsake at en IllegalArgumentException kastes
-		Du skal kunne sende inn en streng med 0 og 1 (kun), heretter kalt bitstreng, og få returnert
-		korresponderende int verdi
-		Du skal kunne sende inn en int og få returnert den som en bitstreng med lengde 24*/
 	public Utility utility;	
+	public static final int MAX_BIT_LENGTH = 24;
+	public static final int MAX_HEX_LENGTH = 6; 
 	
 	@Rule
 	public ExpectedException thrown = ExpectedException.none(); 
@@ -27,14 +30,10 @@ public class UtilityTest {
 		assertTrue(utility.isEmpty(""));		
 	}
 	@Test
-	public void testLengthOfString() {
-		assertTrue(utility.getLength("01011")); 
-	}
-	@Test
 	public void testLengthOfString_LongerThan24_IllegalArgumentException(){
 		thrown.expect(IllegalArgumentException.class);
 		thrown.expectMessage("Number of bits exceeds maximum allowed");
-		utility.getLength("010101010101010101010101011101"); 
+		utility.checkLength("010101010101010101010101011101", MAX_BIT_LENGTH); 
 	}
 	@Test
 	public void convertBinaryToInt_0_shouldReturn0(){
@@ -45,7 +44,7 @@ public class UtilityTest {
 		assertEquals(13, utility.convertBinaryToInt("1101"));		
 	}
 	@Test
-	public void convertBinaryToInt_11010101_shouldReturn213(){ //Dele opp koden i flere tester
+	public void convertBinaryToInt_11010101_shouldReturn213(){
 		assertEquals(213, utility.convertBinaryToInt("11010101"));
 	}
 	@Test
@@ -56,5 +55,16 @@ public class UtilityTest {
 	public void convertIntToBinary_213_shouldReturn_000000000000000011010101(){
 		assertEquals("000000000000000011010101", utility.convertIntToBinary(213)); 
 	}
-	
+	@Test 
+	public void checkInput_shouldReturnIllegalArgumentException(){
+		thrown.expect(IllegalArgumentException.class);
+		thrown.expectMessage("Wrong input");
+		utility.checkInput("5"); 
+	}
+	@Test 
+	public void checkLength_longerThan6_IllegalArgumentException(){
+		thrown.expect(IllegalArgumentException.class);
+		thrown.expectMessage("Number of bits exceeds maximum allowed");
+		utility.checkLength("1234567", MAX_HEX_LENGTH); 
+	}
 }
