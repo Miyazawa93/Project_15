@@ -7,6 +7,8 @@ import org.junit.rules.ExpectedException;
 public class UtilityTest {
 	
 	public Utility utility;	
+	private String first = "100110101011101101011001";
+	private String last =  "010100010010110010011101";
 	
 	@Rule
 	public ExpectedException thrown = ExpectedException.none(); 
@@ -75,11 +77,11 @@ public class UtilityTest {
 	}
 	@Test
 	public void convertHexToInt_9A_shouldReturn_154(){
-		assertEquals(154, utility.convertHexToInt("9A")); 
+		assertEquals(154, utility.convertHexToIntResult("9A"));  
 	}
 	@Test
 	public void convertHexToInt_B6_shouldReturn_182(){
-		assertEquals(182, utility.convertHexToInt("B6")); 
+		assertEquals(182, utility.convertHexToIntResult("B6")); 
 	}
 	@Test
 	public void convertIntToHex_154_shouldReturn_9A(){
@@ -88,6 +90,34 @@ public class UtilityTest {
 	@Test 
 	public void convertIntToHex_182_shouldReturn_B6(){
 		assertEquals("B6", utility.convertIntToHex(182)); 
+	}
+	@Test 
+	public void bitwiseANDOperation_shouldReturn_000100000010100000011001(){
+		assertEquals("000100000010100000011001", utility.bitwise_AND_Operation(first, last));
+	}
+	@Test
+	public void bitwiseANDOperation_shouldReturn_000000000000000000000000(){
+		assertEquals("000000000000000000000000", utility.bitwise_AND_Operation("101010101010001111010101", "000000000000000000000000"));
+	}
+	@Test 
+	public void bitwiseANDOperation_shouldReturn_IllegalArgumentException(){
+		assertEquals("101010101010001111010101", utility.bitwise_OR_Operation("101010101010001111010101", "000000000000000000000000")); 
+	}
+	@Test
+	public void bitWise_AND_Operation_shouldReturn_101010101010001111010101(){
+		thrown.expect(IllegalArgumentException.class);
+		thrown.expectMessage("Number of bits exceeds maximum allowed");
+		utility.bitwise_AND_Operation("101010101010001111010101000000000000", "000000000000000000000000"); 
+	}
+	@Test 
+	public void bitwise_OR_Operation_shouldReturn_110110111011111111011101(){
+		assertEquals("110110111011111111011101", utility.bitwise_OR_Operation(first, last));
+	}
+	@Test
+	public void bitWise_OR_Operation_shouldReturn_101010101010001111010101(){
+		thrown.expect(IllegalArgumentException.class);
+		thrown.expectMessage("Number of bits exceeds maximum allowed");
+		utility.bitwise_OR_Operation("101010101010001111010101000000000000", "000000000000000000000000"); 
 	}
 }
 

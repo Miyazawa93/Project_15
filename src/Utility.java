@@ -38,26 +38,60 @@ public class Utility {
 		if(!input.matches(acceptedTokens))
 			throw new IllegalArgumentException("Input not allowed"); 
 	}
-	public int convertHexToInt(String string) {
+
+	public int convertHexToIntResult(String string){
 		checkInput(string, constant.ALLOWED_TOKENS_HEX );
-		String digits =  "0123456789ABCDEF";
-        string = string.toUpperCase();
-        int converted = 0;
-        for (int i = 0; i < string.length(); i++) {
-            char c = string.charAt(i);
-            int d = digits.indexOf(c);
-            converted = 16*converted + d;
-        }
-        return converted;
+		return convertHexToInt(string.toUpperCase().toCharArray()); 
 	}
+
+	private int convertHexToInt(char [] charArray) {
+		int converted = 0;
+		for(char digit : charArray)
+			converted = 16 * converted + constant.ALLOWED_TOKENS_HEXADECIMAL.indexOf(digit);
+		return converted;
+	}
+
 	public String convertIntToHex(int integer){
-		 String digits = "0123456789ABCDEF";
-		 String converted = "";
-	        while (integer > 0) {
-	            int digit = integer % 16;             
-	            converted = digits.charAt(digit) + converted;
-	            integer = integer / 16;
-	        }
-	        return converted;
-	    }
+		String digits = constant.ALLOWED_TOKENS_HEXADECIMAL; 
+		String converted = "";
+		while (integer > 0) {
+			int digit = integer % 16;             
+			converted = digits.charAt(digit) + converted;
+			integer = integer / 16;
+		}
+		return converted;
+	}
+	public String bitwise_AND_Operation(String first, String last) {
+		checkBitLength(first);
+		checkBitLength(last);
+		return bitwiseAndOperation( first.toCharArray(), last.toCharArray());
+	}
+	private String bitwiseAndOperation(char[] charArrayFirst, char[] charArrayLast) {
+		StringBuilder string = new StringBuilder("");
+		for(int i = 0; i < constant.MAX_BIT_LENGTH; i++){
+			if(charArrayFirst[i] == '1' && charArrayLast[i] == '1'){
+				string.append(1);
+			}
+			else 
+				string.append(0); 
+		}
+		return string.toString();
+	}
+	public Object bitwise_OR_Operation(String first, String last) {
+		checkBitLength(first);
+		checkBitLength(last);
+		return bitwiseOrOperation(first.toCharArray(), last.toCharArray());
+	}
+	private String bitwiseOrOperation(char[] charArrayFirst, char[] charArrayLast) {
+		StringBuilder string = new StringBuilder("");
+		for(int i = 0; i < constant.MAX_BIT_LENGTH; i++){
+			if(charArrayFirst[i] == '1' || charArrayLast[i] == '1'){
+				string.append(1);
+			}
+			else 
+				string.append(0); 
+		}
+		return string.toString();
+	}
 }
+
