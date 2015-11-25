@@ -1,11 +1,14 @@
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class FileClass {
 	
 	private FileReader reader;
 	private Utility utility = new Utility(); 
-	public LinkedHashMap <Integer, InputFromSensor> data = new LinkedHashMap<Integer, InputFromSensor>();
-
+	public HashMap <Integer, InputFromSensor> data = new HashMap<Integer, InputFromSensor>();
+	public List<String> errorLog = new ArrayList<>(); 
+	
 	public FileClass(FileReader reader) {
 		this.reader = reader; 
 	}
@@ -17,27 +20,27 @@ public class FileClass {
 	}
 	public String[] checkInput(String collectedData){
 		String [] arguments = collectedData.split("\\s+");
-		checkLength(arguments);
-		return arguments;
-	}
-	private void checkLength(String[] arguments) {
 		if (arguments.length != 4 || arguments.length == 0) {
 			throw new IllegalArgumentException("Illegal number of arguments");
 		}
+		return arguments;
 	}
-	public boolean createInput(String keyHexValue, String firstInput, String secondInput, String operator){
-		int key = utility.convertHexToIntResult(keyHexValue); 
-		InputFromSensor input = new InputFromSensor(firstInput, secondInput, operator); 
-		return checkForDuplicates(key, input); 
+	public void createInput(String keyHexValue, String operator, String firstInput, String secondInput){
+		if(data.containsKey(utility.convertHexToIntResult(keyHexValue)))
+			saveError(keyHexValue + " " + operator + " " + firstInput + " " + secondInput);
+		else if( operator.equals("1") || operator.equals("2")){
+			InputFromSensor input = new InputFromSensor(firstInput, secondInput, operator); 
+			int key = utility.convertHexToIntResult(keyHexValue); 
+			data.put(key,input); 
+		}
+		saveError(keyHexValue + " " + operator + " " + firstInput + " " + secondInput);
 	}
-	private boolean checkForDuplicates(int key, InputFromSensor input) {
-		if (!data.containsKey(key))
-			data.put(key, input);
-		else
-			return false;
-		return true;
+	private void saveError( String line ) {
+		errorLog.add(line);
 	}
-
+	public List<String> getErrors(){
+		return errorLog;
+	}
 	public class InputFromSensor{
 		private String firstSensor, secondSensor, result; 
 		private Integer resultInteger; 
@@ -60,6 +63,10 @@ public class FileClass {
 				result = utility.bitwise_OR_Operation(firstValue, secondValue);
 			else if (operator.equals("2"))
 				result = utility.bitwise_AND_Operation(firstValue, secondValue);
+			else{
+				saveError(operator);
+				throw new IllegalArgumentException(); 
+			}
 		}
 
 		public boolean checkEquality(Object check){
