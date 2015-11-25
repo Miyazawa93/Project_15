@@ -25,6 +25,14 @@ public class FileClass {
 		}
 		return arguments;
 	}
+	public String calculate(String firstValue, String secondValue, String operator){
+		String result = ""; 
+		if (operator.equals("1"))
+			result =  utility.bitwise_AND_Operation(firstValue, secondValue); 
+		else if (operator.equals("2"))
+			result = utility.bitwise_OR_Operation(firstValue, secondValue);
+		return result; 
+	}
 	public void createInput(String keyHexValue, String operator, String firstInput, String secondInput){
 		if(data.containsKey(utility.convertHexToIntResult(keyHexValue)))
 			saveError(keyHexValue + " " + operator + " " + firstInput + " " + secondInput);
@@ -41,6 +49,7 @@ public class FileClass {
 	public List<String> getErrors(){
 		return errorLog;
 	}
+	
 	public class InputFromSensor{
 		private String firstSensor, secondSensor, result; 
 		private Integer resultInteger; 
@@ -58,11 +67,11 @@ public class FileClass {
 			resultInteger = utility.convertBinaryToInt(result);
 		}
 
-		private void calculate(String firstValue, String secondValue, String operator) {
+		public void calculate(String firstValue, String secondValue, String operator) {
 			if (operator.equals("1"))
-				result = utility.bitwise_OR_Operation(firstValue, secondValue);
-			else if (operator.equals("2"))
 				result = utility.bitwise_AND_Operation(firstValue, secondValue);
+			else if (operator.equals("2"))
+				result = utility.bitwise_OR_Operation(firstValue, secondValue); 
 			else{
 				saveError(operator);
 				throw new IllegalArgumentException(); 

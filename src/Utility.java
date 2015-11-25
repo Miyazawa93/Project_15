@@ -89,9 +89,8 @@ public class Utility {
 				string.append(1);
 			}
 			else 
-				string.append(1); 
+				string.append(0); 
 		}
 		return string.toString(); 
 	}
 }
-
