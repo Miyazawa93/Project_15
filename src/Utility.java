@@ -20,14 +20,9 @@ public class Utility {
 		checkInput(binary, constant.ALLOWED_TOKENS_BINARY);
 		char [] numbers = binary.toCharArray(); 
 		int converted = 0; 
-		converted = convert(numbers, converted);
-		return converted;
-	}
-	private int convert(char[] numbers, int converted) {
-		for(int i = numbers.length -1; i >= 0; i--) {
+		for(int i = numbers.length -1; i >= 0; i--)
 			if(numbers[i]=='1')
 				converted += Math.pow(2, (numbers.length-i - 1));
-		}
 		return converted;
 	}
 
