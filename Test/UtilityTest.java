@@ -35,7 +35,7 @@ public class UtilityTest {
 	public void convertBinaryToInt_0_shouldReturn0(){
 		assertEquals(0, utility.convertBinaryToInt("0")); 
 	}
-	@Test 
+	@Test  
 	public void convertBinaryToInt_1101_shouldReturn13(){
 		assertEquals(13, utility.convertBinaryToInt("1101"));		
 	}
@@ -44,14 +44,14 @@ public class UtilityTest {
 		assertEquals(213, utility.convertBinaryToInt("11010101"));
 	}
 	@Test
-	public void convertIntToBinary_0_shouldReturn0x16(){
+	public void convertIntToBinary_0_shouldReturn0x24(){
 		assertEquals("000000000000000000000000", utility.convertIntToBinary(0)); 
 	}
 	@Test
 	public void convertIntToBinary_213_shouldReturn_000000000000000011010101(){
 		assertEquals("000000000000000011010101", utility.convertIntToBinary(213)); 
 	}
-	@Test 
+	@Test  
 	public void checkInput_shouldReturnIllegalArgumentException(){
 		thrown.expect(IllegalArgumentException.class);
 		thrown.expectMessage("Input not allowed");
@@ -70,7 +70,7 @@ public class UtilityTest {
 		utility.checkInput("5G", constant.ALLOWED_TOKENS_HEX);
 	}
 	@Test 
-	public void checkInput_ghj_illegalArgumentException(){
+	public void checkInput_IllegalTokens_illegalArgumentException(){
 		thrown.expect(IllegalArgumentException.class);
 		thrown.expectMessage("Input not allowed");
 		utility.checkInput("ghj", constant.ALLOWED_TOKENS_HEX);
@@ -101,7 +101,7 @@ public class UtilityTest {
 	}
 	@Test 
 	public void bitwiseANDOperation_shouldReturn_IllegalArgumentException(){
-		assertEquals("101010101010001111010101", utility.bitwise_OR_Operation("101010101010001111010101", "000000000000000000000000")); 
+		assertEquals("111111111111111111111111", utility.bitwise_OR_Operation("101010101010001111010101", "000000000000000000000000")); 
 	}
 	@Test
 	public void bitWise_AND_Operation_shouldReturn_101010101010001111010101(){
@@ -111,7 +111,7 @@ public class UtilityTest {
 	}
 	@Test 
 	public void bitwise_OR_Operation_shouldReturn_110110111011111111011101(){
-		assertEquals("110110111011111111011101", utility.bitwise_OR_Operation(first, last));
+		assertEquals("111111111111111111111111", utility.bitwise_OR_Operation(first, last));
 	}
 	@Test
 	public void bitWise_OR_Operation_shouldReturn_101010101010001111010101(){

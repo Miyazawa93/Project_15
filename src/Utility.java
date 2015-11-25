@@ -20,9 +20,14 @@ public class Utility {
 		checkInput(binary, constant.ALLOWED_TOKENS_BINARY);
 		char [] numbers = binary.toCharArray(); 
 		int converted = 0; 
-		for(int i = numbers.length -1; i >= 0; i--)
+		converted = convert(numbers, converted);
+		return converted;
+	}
+	private int convert(char[] numbers, int converted) {
+		for(int i = numbers.length -1; i >= 0; i--) {
 			if(numbers[i]=='1')
 				converted += Math.pow(2, (numbers.length-i - 1));
+		}
 		return converted;
 	}
 
@@ -44,7 +49,7 @@ public class Utility {
 		return convertHexToInt(string.toUpperCase().toCharArray()); 
 	}
 
-	private int convertHexToInt(char [] charArray) {
+	public int convertHexToInt(char [] charArray) {
 		int converted = 0;
 		for(char digit : charArray)
 			converted = 16 * converted + constant.ALLOWED_TOKENS_HEXADECIMAL.indexOf(digit);
@@ -66,7 +71,7 @@ public class Utility {
 		checkBitLength(last);
 		return bitwiseAndOperation( first.toCharArray(), last.toCharArray());
 	}
-	private String bitwiseAndOperation(char[] charArrayFirst, char[] charArrayLast) {
+	public String bitwiseAndOperation(char[] charArrayFirst, char[] charArrayLast) {
 		StringBuilder string = new StringBuilder("");
 		for(int i = 0; i < constant.MAX_BIT_LENGTH; i++){
 			if(charArrayFirst[i] == '1' && charArrayLast[i] == '1'){
@@ -77,21 +82,21 @@ public class Utility {
 		}
 		return string.toString();
 	}
-	public Object bitwise_OR_Operation(String first, String last) {
+	public String bitwise_OR_Operation(String first, String last) {
 		checkBitLength(first);
 		checkBitLength(last);
 		return bitwiseOrOperation(first.toCharArray(), last.toCharArray());
 	}
-	private String bitwiseOrOperation(char[] charArrayFirst, char[] charArrayLast) {
+	public String bitwiseOrOperation(char[] charArrayFirst, char[] charArrayLast) {
 		StringBuilder string = new StringBuilder("");
 		for(int i = 0; i < constant.MAX_BIT_LENGTH; i++){
 			if(charArrayFirst[i] == '1' || charArrayLast[i] == '1'){
 				string.append(1);
 			}
 			else 
-				string.append(0); 
+				string.append(1); 
 		}
-		return string.toString();
+		return string.toString(); 
 	}
 }
 
