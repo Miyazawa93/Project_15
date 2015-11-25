@@ -28,7 +28,6 @@ public class FileClassTest {
 		assertTrue(file.openFile("fileName.txt"));
 		verify(reader, times(1)).openFile("fileName.txt");
 	} 
-
 	@Test 
 	public void readFile(){
 		when(reader.readLine()).thenReturn("03ac0f 1 110101000000110111001101 001000011110011101001111");
@@ -76,7 +75,15 @@ public class FileClassTest {
 		file.checkInput(operatorMissing); 
 	}
 	@Test
-	public void createInput(){
+	public void createInput_OR_Operator(){
+		String key = "03ac0f";
+		String operator = "1";
+		file.createInput(key, firstInput, secondInput, operator); 
+		FileClass.InputFromSensor input = file.data.get(utility.convertHexToIntResult(key));
+		assertEquals("111111111111111111111111", input.getResult()); 
+	}
+	@Test
+	public void createInput_AND_Operator(){
 		String key = "ac0e1e";
 		String operator = "2";
 		file.createInput(key, firstInput, secondInput, operator); 

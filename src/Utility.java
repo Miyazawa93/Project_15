@@ -6,10 +6,10 @@ public class Utility {
 			throw new IllegalArgumentException("Number of bits exceeds maximum allowed"); 
 	}
 	public void checkHexLength(String string){
-		if(string.length() > constant.MAX_HEX_LENGTH )
-			throw new IllegalArgumentException("Maximum of hex exceeded");
+		if(string.length() != constant.MAX_HEX_LENGTH )
+			throw new IllegalArgumentException("Illegal number of input");
 	}
-
+ 
 	public int checkLength(String string) {
 		if(string.length() == 0){
 			return 0;
@@ -66,7 +66,7 @@ public class Utility {
 		checkBitLength(last);
 		return bitwiseAndOperation( first.toCharArray(), last.toCharArray());
 	}
-	public String bitwiseAndOperation(char[] charArrayFirst, char[] charArrayLast) {
+	private String bitwiseAndOperation(char[] charArrayFirst, char[] charArrayLast) {
 		StringBuilder string = new StringBuilder("");
 		for(int i = 0; i < constant.MAX_BIT_LENGTH; i++){
 			if(charArrayFirst[i] == '1' && charArrayLast[i] == '1'){
@@ -82,7 +82,7 @@ public class Utility {
 		checkBitLength(last);
 		return bitwiseOrOperation(first.toCharArray(), last.toCharArray());
 	}
-	public String bitwiseOrOperation(char[] charArrayFirst, char[] charArrayLast) {
+	private String bitwiseOrOperation(char[] charArrayFirst, char[] charArrayLast) {
 		StringBuilder string = new StringBuilder("");
 		for(int i = 0; i < constant.MAX_BIT_LENGTH; i++){
 			if(charArrayFirst[i] == '1' || charArrayLast[i] == '1'){

@@ -15,7 +15,6 @@ public class FileClass {
 	public String readFile(){
 		return reader.readLine(); 
 	}
-
 	public String[] checkInput(String collectedData){
 		String [] arguments = collectedData.split("\\s+");
 		checkLength(arguments);
@@ -26,7 +25,6 @@ public class FileClass {
 			throw new IllegalArgumentException("Illegal number of arguments");
 		}
 	}
-
 	public boolean createInput(String keyHexValue, String firstInput, String secondInput, String operator){
 		int key = utility.convertHexToIntResult(keyHexValue); 
 		InputFromSensor input = new InputFromSensor(firstInput, secondInput, operator); 

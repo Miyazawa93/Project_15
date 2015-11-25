@@ -11,8 +11,7 @@ public class BinaryToIntParameterizedTest {
 	
 	public BinaryToIntParameterizedTest(String binary, String decimal){
 		this.binary = binary;
-		this.decimal = Integer.parseInt(decimal);
-		
+		this.decimal = Integer.parseInt(decimal);	
 	}
 	
 	@Parameterized.Parameters

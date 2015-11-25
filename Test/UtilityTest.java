@@ -14,7 +14,7 @@ public class UtilityTest {
 	public ExpectedException thrown = ExpectedException.none(); 
 	
 	@Before
-	public void setUp (){
+	public void setUp (){ 
 		utility = new Utility();	
 	}
 	@Test
@@ -60,8 +60,14 @@ public class UtilityTest {
 	@Test 
 	public void checkHexLength_longerThan6_IllegalArgumentException(){
 		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("Maximum of hex exceeded");
+		thrown.expectMessage("Illegal number of input");
 		utility.checkHexLength("1234567"); 
+	}
+	@Test
+	public void checkHexLength_lessThan6_IllegalArgumentException(){
+		thrown.expect(IllegalArgumentException.class);
+		thrown.expectMessage("Illegal number of input");
+		utility.checkHexLength("123"); 
 	}
 	@Test 
 	public void checkInput_5G_illegalArgumentException(){
@@ -120,4 +126,3 @@ public class UtilityTest {
 		utility.bitwise_OR_Operation("101010101010001111010101000000000000", "000000000000000000000000"); 
 	}
 }
-

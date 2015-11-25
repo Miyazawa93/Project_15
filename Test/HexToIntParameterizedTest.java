@@ -12,8 +12,8 @@ public class HexToIntParameterizedTest {
 	public HexToIntParameterizedTest(String hex, String decimal){
 		this.hex = hex;
 		this.decimal = Integer.parseInt(decimal);
-		
 	}
+	
 	@Parameterized.Parameters
 	public static java.util.Collection< String[] > input() {
 		return java.util.Arrays.asList( new String[][]{
@@ -26,7 +26,6 @@ public class HexToIntParameterizedTest {
 				
 		});
 	}
-	
 	@Test
 	public void convertHexToInt() {
 		Utility utility = new Utility(); 

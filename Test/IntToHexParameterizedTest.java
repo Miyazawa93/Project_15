@@ -32,5 +32,5 @@ public class IntToHexParameterizedTest {
 		Utility utility = new Utility(); 
 		int converted = utility.convertHexToIntResult(hex); 
 		assertEquals(decimal, converted);	
-	}
+	} 
 }
