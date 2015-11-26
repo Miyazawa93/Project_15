@@ -73,7 +73,6 @@ public class FileClass {
 			else if (operator.equals("2"))
 				result = utility.bitwise_OR_Operation(firstValue, secondValue); 
 			else{
-				saveError(operator);
 				throw new IllegalArgumentException(); 
 			}
 		}
